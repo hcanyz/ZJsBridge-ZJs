@@ -3,6 +3,30 @@ import SHA1 from 'sha1'
 var _dgtVerifyRandomStr = "${_dgtVerifyRandomStr}"
 
 window.__zf = window.__zf || (function () {
+    let eventer = (eventName, params) => {
+        let ret = {
+            msgType: "event",
+            eventName,
+            params
+        }
+
+        let retStr = window.btoa(JSON.stringify(ret))
+
+        window.zfJSBridge._handleMessageFromZF(JSON.stringify({
+            jsonMessage: retStr,
+            shaKey: SHA1(retStr + _dgtVerifyRandomStr).toString()
+        }))
+    }
+
+    document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'hidden') {
+            eventer("onContainerPause", { test: "test onContainerPause data" })
+        }
+        if (document.visibilityState === 'visible') {
+            eventer("onContainerResume", { test: "test onContainerResume data" })
+        }
+    });
+
     return {
         _sendMessage: function (msgStr) {
             var msg = JSON.parse(msgStr)

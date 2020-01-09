@@ -13,7 +13,7 @@
      * } callBack res对象包括 errCode errMsg
      */
     function call(apiName, params, callBack) {
-        windowz.zfJSBridge ? zfJSBridge.call(apiName, checkParams(params), function (ret) {
+        windowz.zfJSBridge ? windowz.zfJSBridge.call(apiName, checkParams(params), function (ret) {
             callBack._complete && callBack._complete(ret) || delete callBack._complete
 
             var errCode = ret && ret['errCode']
@@ -39,6 +39,17 @@
     function defCall(apiName, callBack) {
         callBack.complete && callBack.complete()
         console.log("zfJSBridge not found ," + apiName)
+    }
+
+    function on(eventName, callBack) {
+        windowz.zfJSBridge ? windowz.zfJSBridge.on(eventName, function (ret) {
+            callBack(ret)
+        }) : defOn(eventName, callBack)
+    }
+
+    function defOn(eventName, callBack) {
+        callBack.complete && callBack.complete()
+        console.log("zfJSBridge not found ," + eventName)
     }
 
     var api = {
@@ -130,6 +141,12 @@
             call("previewLocation", {
             }, e)
         },
+        onContainerResume: function (e) {
+            on("onContainerResume", e)
+        },
+        onContainerPause: function (e) {
+            on("onContainerPause", e)
+        }
     }
     return open && (windowz.zfApi = api), api
 })

@@ -19,6 +19,16 @@
     ```
 Native每次收到请求都需要校验数据一致性
 
+- _on 用于监听native发送的某些事件
+    数据结构：
+    ```
+    _on({
+        jsonMessage:"{
+            eventName:""
+        }",
+        shaKey:"" // sha1(jsonMessage+_dgtVerifyRandomStr)
+    })
+    ```
 
 ## Native->Bridge
 - _handleMessageFromZF 用于Native传递数据给Bridge
@@ -26,17 +36,18 @@ Native每次收到请求都需要校验数据一致性
     数据结构:
     ```
     _handleMessageFromZF({
-        jsonMessage:{
+        //android与js平台的json实现有略微区别，需要base64编码保证数据一致
+        jsonMessage:Base64.encodeToString("{
             msgType:""       //callback | event
-            callbackId:""    //msgType==callback必传，_sendMessage里面
+            callbackId:""    //msgType==callback必传，在_sendMessage获得
             eventName:""     //msgType==event必传，表示触发什么事件
 
             params:{           //调用参数,json
                 errCode:0       //必传
                 errMsg:""       //具体api
             }
-        },
-        shaKey:""  // sha1(jsonMessage+_dgtVerifyRandomStr)
+        }"),
+        shaKey:""  // sha1(jsonMessage:Base64.encodeToString(jsonMessage)+_dgtVerifyRandomStr)
     })
     ```
     返回值：
@@ -48,7 +59,8 @@ Native每次收到请求都需要校验数据一致性
     }
     正常: 看具体api
     {
-        'errCode': 0
+        'errCode': 0,
+        ...
     }
     ```
 
@@ -59,7 +71,6 @@ Native每次收到请求都需要校验数据一致性
 | 0       | 正常                         |
 | 1       | 取消操作                     |
 | 2       | 无效的请求参数               |
-| 3       | 未知错误                     |
 | 403     | 没有该方法的调用权限         |
 | 404     | 请求的方法或者事件名没有找到 |
 

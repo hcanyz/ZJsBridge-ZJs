@@ -47,6 +47,16 @@ export default {
       selectNativeResourceUrl: undefined
     };
   },
+  mounted() {
+    setTimeout(() => {
+      window.zfApi.onContainerResume(ret => {
+        console.log(`onContainerResume ${JSON.stringify(ret)}`);
+      });
+      window.zfApi.onContainerPause(ret => {
+        console.log(`onContainerPause ${JSON.stringify(ret)}`);
+      });
+    }, 500);
+  },
   methods: {
     config() {
       window.zfApi.config({
