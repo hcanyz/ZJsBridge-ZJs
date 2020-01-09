@@ -76,3 +76,6 @@ Native每次收到请求都需要校验数据一致性
 
 - 已有event列表
 
+    - onContainerResume 容器变化到前台
+    
+    - onContainerPause 容器变化到后台
