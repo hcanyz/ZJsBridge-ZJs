@@ -2,7 +2,7 @@ ZJsBridge
 ===
 > 参考微信jsBridge的一套完整的native-bridge-web协议与实现，清晰规范的开发Hybrid App
 
-[ZJsBridge项目](https://github.com/hcanyz/ZJsBridge)
+[android实现: ZJsBridge](https://github.com/hcanyz/ZJsBridge)
 
 ## ZJsBridge能做什么
 - 对web端提供js-sdk，形成sdk概念，统一app对外api，统一的api管理（权限、版本兼容）
