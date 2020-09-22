@@ -19,7 +19,7 @@ ZJsBridge
 
 ## [Native-Bridge协议](./readme-protocol.md#协议)
 
-## [nativeResourceUrl协议](./readme-nativeResourceUrl.md#协议)
+## ~~[nativeResourceUrl协议](./readme-nativeResourceUrl.md#协议)~~
 
 参考：   
 [wxjs.js](./reference/wxjs.js)   
