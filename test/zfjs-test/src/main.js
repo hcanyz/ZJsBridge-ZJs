@@ -10,6 +10,7 @@ if (navigator.platform == "Win32") {
 }
 
 import '@/vendor/zfjs-sdk.js'
+import '@/vendor/zfjs-test-sdk'
 
 Vue.config.productionTip = false
 

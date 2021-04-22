@@ -5,6 +5,10 @@
       <div class="button" @click="config">config</div>
     </div>
 
+    <div class="box" name="test">
+      <div class="button" @click="_test_unicode_params_and_result">_test_unicode_params_and_result</div>
+    </div>
+
     <div class="box" name="utils">
       <div class="button" @click="setTitle">setTitle</div>
       <div class="button" @click="backCloseWindow">backCloseWindow</div>
@@ -69,6 +73,15 @@ export default {
         complete(ret) {
           console.log(`config complete ${JSON.stringify(ret)}`);
           window.location.href = "https://github.com/hcanyz/";
+        }
+      });
+    },
+
+    _test_unicode_params_and_result() {
+      window.zfTestApi._test_unicode_params_and_result({
+        unicodeParams: "中文 Emoji 😂🤣",
+        success({unicodeResult}) {
+            console.log(unicodeResult);
         }
       });
     },
